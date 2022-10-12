@@ -1,11 +1,13 @@
+package model;
+
 import java.time.LocalDate;
 
 public class DiaryInput {
     private String title;
     private String diaryPost;
-    private LocalDate date;
+    private String date;
 
-    public DiaryInput(String title, String diaryPost, LocalDate date) {
+    public DiaryInput(String title, String diaryPost, String date) {
         this.title = title;
         this.diaryPost = diaryPost;
         this.date = date;
@@ -30,11 +32,11 @@ public class DiaryInput {
         this.diaryPost = diaryPost;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
