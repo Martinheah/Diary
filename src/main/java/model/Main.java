@@ -1,12 +1,18 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         DiaryInput diary = new DiaryInput();
+        ObjectMapper mapper = new ObjectMapper();
+        List<DiaryInput> posts = new ArrayList<>();
+
         int userChoice;
         LocalDate date = LocalDate.now();
         diary.setDate(date);
@@ -19,7 +25,6 @@ public class Main {
             userChoice = scanner.nextInt();
             switch (userChoice) {
                 case 1:
-                    System.out.println("Read diary");
                     break;
 
                 case 2:
@@ -27,12 +32,9 @@ public class Main {
                     String title = scanner.next();
                     diary.setTitle(title);
                     System.out.println("Write your post: ");
-                    String todaysInput = scanner.next();
-                    diary.setDiaryPost(todaysInput);
-                    System.out.println("Title: " + diary.getTitle()
-                            + "\nInput for today: "
-                            + diary.getDiaryPost()
-                            + "\n" + diary.getDate());
+                    String inputOfTheDay = scanner.next();
+                    diary.setDiaryPost(inputOfTheDay);
+                    mapper.writeValue(Paths.get("DiaryInputs.json").toFile(), diary);
                     break;
                 case 3:
                     System.out.println("You chose to exist the program.");
