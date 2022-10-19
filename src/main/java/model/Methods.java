@@ -2,7 +2,6 @@ package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,28 +21,41 @@ public class Methods {
 
     static Path path = Paths.get("src/main/resources/diaryInput.json");
 
-
-
+    /**
+     * Creating entry and saving it to a list
+     * @throws IOException jackson exemption
+     */
     static void userInput() throws IOException {
         if (path.toFile().exists()) {
             diaryPosts = List.of(mapper.readValue(path.toFile(), DiaryInput[].class));
             diaryList.addAll(diaryPosts);
         }
-
         System.out.println("Write your title for today:");
         String title = scanner.nextLine();
+
         diary.setTitle(title);
+
         System.out.println("Write your post: ");
         String inputOfTheDay = scanner.nextLine();
+
         diary.setDiaryPost(inputOfTheDay);
+
         diary.setDate(dateFormat.format(date));
+
         diaryList.add(diary);
+
         mapper.writeValue(path.toFile(), diaryList);
     }
+
+    /**
+     * Looping through the list of saved entries.
+     * @throws IOException jackson exemption
+     */
     static void readInput() throws IOException {
         DiaryInput[] getAllTheContentFromDiary;
         getAllTheContentFromDiary = mapper.readValue(path.toFile(),
                 DiaryInput[].class);
+
         for (DiaryInput p : getAllTheContentFromDiary) {
             System.out.println("\nTitle:  " + p.getTitle());
             System.out.println("Story: " + p.getDiaryPost());
