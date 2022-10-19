@@ -1,7 +1,4 @@
 package model;
-
-import java.time.LocalDate;
-
 public class DiaryInput {
     private String title;
     private String diaryPost;
